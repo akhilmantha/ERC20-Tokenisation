@@ -9,9 +9,9 @@ module.exports = {
       port: 8545
     }
   },
-  comilers: {
+  compilers: {
     solc: {
-      version: "0.8.1"
+      version: "^0.8.0"
     }
   }
 };
