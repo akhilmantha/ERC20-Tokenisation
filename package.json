@@ -22,6 +22,9 @@
   "homepage": "https://github.com/akhilmantha/Asset-Tokenization#readme",
   "dependencies": {
     "@openzeppelin/contracts": "^4.5.0",
+    "chai": "^4.3.6",
+    "chai-as-promised": "^7.1.1",
+    "chai-bn": "^0.3.1",
     "truffle": "^5.5.7"
   }
 }
