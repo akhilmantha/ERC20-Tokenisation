@@ -21,8 +21,15 @@ contract("Token Test", async (accounts) => {
         //let balance  = await instance.balanceOf(accounts[0]);
         //assert.equal(balance.valueOf(), initialSupply.valueOf(), "The balance was not the same");
         //Readable format:
-        expect(instance.balanceOf(deployerAccount)).to.eventually.be.a.bignumber.equal(totalSupply);
+        return expect(instance.balanceOf(deployerAccount)).to.eventually.be.a.bignumber.equal(totalSupply);
 
+    });
+
+    it("is not possible to send more tokens than available in total", async () => {
+        let instance = await Token.deployed();
+        let balanceOfDeployer = await instance.balanceOf(deployerAccount);
+        expect(instance.transfer(recipient, new BN(balanceOfDeployer+1))).to.be.rejected;
+        expect(instance.balanceOf(deployerAccount)).to.eventually.be.a.bignumber.equal(balanceOfDeployer);
     });
 
     it("is possible to send tokens between accounts", async () => {
@@ -35,10 +42,4 @@ contract("Token Test", async (accounts) => {
         expect(instance.balanceOf(recipient)).to.eventually.be.a.bignumber.equal(new BN(sendTokens)); 
     });
 
-    it("is not possible to send more tokens than available in total", async () => {
-        let instance = await Token.deployed();
-        let balanceOfDeployer = await instance.balanceOf(deployerAccount);
-        expect(instance.transfer(recipient, new BN(balanceOfDeployer+1))).to.be.rejected;
-        expect(instance.balanceOf(deployerAccount)).to.eventually.be.a.bignumber.equal(balanceOfDeployer);
-    });
 }); 
