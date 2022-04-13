@@ -15,4 +15,12 @@ contract("TokenSale Test", async (accounts) => {
 
     });
 
+    it("all tokens should be in TokenSale smartcontract by default", async() => {
+        let instance = await Token.deployed();
+        let balanceOfTokenSaleSmartContract = await instance.balanceOf(TokenSale.address);
+        let totalSupply = await instance.totalSupply();
+        expect(balanceOfTokenSaleSmartContract).to.be.a.bignumber.equal(totalSupply);
+
+    });
+
 });
