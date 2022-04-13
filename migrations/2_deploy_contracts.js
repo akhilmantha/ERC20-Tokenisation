@@ -1,7 +1,7 @@
 var MyToken = artifacts.require("MyToken.sol");
 var MyTokenSale = artifacts.require("MyTokenSale.sol");
 require("dotenv").config({path: "../.env"});
-console.log(process.env);
+//console.log(process.env);
 
 module.exports = async function(deployer) {
   let address = await web3.eth.getAccounts();
