@@ -6,7 +6,7 @@ import KycContract from "./contracts/KycContract.json";
 import "./App.css";
 
 class App extends Component {
-  state = { loaded:false };
+  state = { loaded:false, kycAddress: "0x123...."};
 
   componentDidMount = async () => {
     try {
@@ -46,6 +46,20 @@ class App extends Component {
     }
   };
 
+  handleInputChange = (event) => {
+    const target = event.target;
+    const value = target.type === "checkbox"? target.checked : target.value ;
+    const name = target.name;
+    this.setState({
+      [name]: value
+    });
+  }
+
+  handleKycWhitelisting = async() => {
+    await this.KycInstance.methods.setKycCompleted(this.state.kycAddress).send({from: this.accounts[0]});
+    alert("KYC for"+this.state.kycAddress+"is completed");
+  }
+
   render() {
     if (!this.state.loaded) {
       return <div>Loading Web3, accounts, and contract...</div>;
@@ -55,7 +69,8 @@ class App extends Component {
         <h1>Cold Brew Coffee Works</h1>
         <p>Get you Tokens today!</p>
         <h2>KYC Whitelisting</h2>
-        Address to allow: <input type= "text" name = "kycAddress" value = {this.state.kycAddress} />
+        Address to allow: <input type= "text" name = "kycAddress" value = {this.state.kycAddress} onChange = {this.handleInputChange}/>
+        <button type = "button" onClick={this.handleKycWhitelisting}> Add to Whitelist</button>
       </div>
     );
   }
