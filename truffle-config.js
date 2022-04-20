@@ -2,6 +2,7 @@ const path = require("path");
 require("dotenv").config({path: "./.env"});
 const HDWalletProvider = require("@truffle/hdwallet-provider");
 const AccountIndex = 1;
+const {GANACHE_LOCAL, GOERLI_INFURA, ROPSTEN_INFURA, MNEMONIC} = process.env;
 
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
@@ -15,10 +16,24 @@ module.exports = {
     },
     ganache_local: {
       provider: function() {
-        return new HDWalletProvider(process.env.MNEMONIC, "http://127.0.0.1:7545", AccountIndex)
+        return new HDWalletProvider(MNEMONIC, GANACHE_LOCAL, AccountIndex)
       },
       network_id: 1337
-    }
+    },
+    goerli: {
+      provider: function() {
+        return new HDWalletProvider(MNEMONIC, GOERLI_INFURA, AccountIndex)
+      },
+      network_id: 5
+    },
+    ropsten: {
+      provider: function() {
+        return new HDWalletProvider(MNEMONIC, ROPSTEN_INFURA, AccountIndex)
+      },
+      network_id: 3,
+      networkCheckTimeout: 10000,
+      timeoutBlocks: 200
+    },
   },
   compilers: {
     solc: {
