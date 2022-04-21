@@ -24,7 +24,7 @@ npm install
 ganache
 ```
 
-3. With ganache running, compile and deploy the contracts to the local network in a separate terminal window using truffle 
+3. With ganache running, compile and deploy the contracts to the ganache local network in a separate terminal window using truffle 
 
 ```sh
 truffle compile
